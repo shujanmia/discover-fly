@@ -115,11 +115,14 @@
                 <div class="card-body">
                   <h5 class="card-title">Hi...</h5>
                   <p class="card-text">Just to let you know — we've received your booking, and it is now being pending:</p>
-                  <a href="#" class="btn btn-success btn-sm">DOWNLOAD Booking SUMMARY</a>
+                  <h4 id="total-ticket"></h4>
+                  <h4 id="total-ticket-price"></h4>
+                  <a href="#" class="btn btn-success btn-sm">DOWNLOAD BOOKING SUMMARY</a>
                 </div>
               </div>
         </div>
         <script>
+            let grandTotal = 0;
             function handleBookingChange(booking, isIncrease){
                 const bookingInput =  document.getElementById(booking + '-count');
                 const bookingCount = parseInt(bookingInput.value);
@@ -131,13 +134,6 @@
                     bookingNewCount = bookingCount - 1;
                 }
                 bookingInput.value = bookingNewCount;
-                let bookingTotal = 0;
-                if(booking == 'economy'){
-                    bookingTotal = bookingNewCount * 100;
-                }
-                if(booking == 'first-class'){
-                    bookingTotal = bookingNewCount * 150;
-                }
                 calculateTotal();
             }
             function calculateTotal(){
@@ -149,11 +145,11 @@
 
                 const ticketTotalPrice = firstClassCount * 150 + economyCount * 100;
                 document.getElementById('sub-total').innerText = '$' + ticketTotalPrice;
-
+                
                 const text = ticketTotalPrice * 0.1;
                 document.getElementById('tax-amount').innerText = '$' + text;
 
-                const grandTotal = ticketTotalPrice + text;
+                grandTotal = ticketTotalPrice + text;
                 document.getElementById('grand-total').innerText = '$' + grandTotal;
             }
             const bookNowBtn = document.getElementById('book-now-btn').addEventListener('click', function(){
@@ -163,7 +159,19 @@
                 bookingContentHide.style.display = 'none';
                 const confirmArea = document.getElementById('confirm-area');
                 confirmArea.style.display = 'block';
+                bookingInfo();
             })
+            function bookingInfo(){
+                const firstClassTicket =  document.getElementById('first-class-count');
+                const totalFirstClassTicket = parseInt(firstClassTicket.value);
+
+                const economyTicket = document.getElementById('economy-count');
+                const totalEconomyTicket = parseInt(economyTicket.value);
+                const totalTicket = totalFirstClassTicket + totalEconomyTicket;
+                document.getElementById('total-ticket').innerText = 'Total Ticket: ' + totalTicket;
+                document.getElementById('total-ticket-price').innerText = 'Total Ticket Price: ' + grandTotal;
+            }
+            
         </script>
     </section>
 </body>
