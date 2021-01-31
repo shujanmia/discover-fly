@@ -147,13 +147,13 @@
                 const economyInput = document.getElementById('economy-count');
                 const economyCount = parseInt(economyInput.value);
 
-                const totalPrice = firstClassCount * 150 + economyCount * 100;
-                document.getElementById('sub-total').innerText = '$' + totalPrice;
+                const ticketTotalPrice = firstClassCount * 150 + economyCount * 100;
+                document.getElementById('sub-total').innerText = '$' + ticketTotalPrice;
 
-                const text = totalPrice * 0.1;
+                const text = ticketTotalPrice * 0.1;
                 document.getElementById('tax-amount').innerText = '$' + text;
 
-                const grandTotal = totalPrice + text;
+                const grandTotal = ticketTotalPrice + text;
                 document.getElementById('grand-total').innerText = '$' + grandTotal;
             }
             const bookNowBtn = document.getElementById('book-now-btn').addEventListener('click', function(){
